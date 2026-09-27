@@ -1,17 +1,14 @@
-from fastapi.responses import HTMLResponse, FileResponse
-import os
-
-@app.get("/", response_class=HTMLResponse)
-    target = os.path.join(os.path.dirname(__file__), "index.html")
-    if os.path.exists(target):
-        return open(target, encoding="utf-8").read()
-    return "<h2>DocShield Bharat AI Engine Online</h2>"
-from fastapi.responses import FileResponse, HTMLResponse
+﻿import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse, FileResponse
 from app.api.v1.router import api_router
 
-app = FastAPI(title="DocShield AI Omega API")
+app = FastAPI(
+    title="DocShield AI API",
+    description="Zero-Trust Identity Screening Infrastructure",
+    version="1.0.0"
+)
 
 app.add_middleware(
     CORSMiddleware,
@@ -21,20 +18,23 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/")
-def root():
-    index_p = os.path.join(os.path.dirname(__file__), "index.html")
-    if os.path.exists(index_p):
-        return HTMLResponse(content=open(index_p, encoding="utf-8").read())
-    return HTMLResponse("<h1>DocShield Bharat AI Console</h1>")
+@app.get("/", response_class=HTMLResponse)
+async def root():
+    candidates = [
+        os.path.join(os.path.dirname(__file__), "index.html"),
+        os.path.join(os.path.dirname(__file__), "..", "..", "frontend", "index.html"),
+        "code/backend/app/index.html",
+        "code/frontend/index.html",
+        "frontend/index.html",
+        "index.html"
+    ]
+    for c in candidates:
+        if os.path.exists(c):
+            try:
+                with open(c, "r", encoding="utf-8") as f:
+                    return HTMLResponse(content=f.read())
+            except Exception:
+                pass
+    return HTMLResponse("<h2>DocShield Bharat AI Engine Online</h2>")
 
-@app.get("/health")
-def health():
-    return {"status": "healthy"}
-
-app.include_router(api_router, prefix="/api/v1")
-
-
-
-
-
+app.include_router(api_router, prefix="/api")
