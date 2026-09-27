@@ -1,3 +1,5 @@
+﻿from fastapi.responses import FileResponse, HTMLResponse
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.api.v1.router import api_router
@@ -21,3 +23,4 @@ def health():
     return {"status": "healthy"}
 
 app.include_router(api_router, prefix="/api/v1")
+
