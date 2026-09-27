@@ -1,5 +1,7 @@
 ﻿from fastapi.responses import HTMLResponse, FileResponse
 import os
+from fastapi.responses import HTMLResponse, FileResponse
+import os
 
 @app.get("/", response_class=HTMLResponse)
 def serve_ui_direct():
@@ -35,6 +37,7 @@ def health():
     return {"status": "healthy"}
 
 app.include_router(api_router, prefix="/api/v1")
+
 
 
 
