@@ -1,0 +1,5 @@
+fastapi 
+uvicorn 
+easyocr 
+opencv-python-headless 
+networkx 
