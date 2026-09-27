@@ -25,7 +25,10 @@ app.add_middleware(
 
 @app.get("/")
 def root():
-    return {"status": "DocShield AI Omega Engine Online"}
+    index_p = os.path.join(os.path.dirname(__file__), "index.html")
+    if os.path.exists(index_p):
+        return HTMLResponse(content=open(index_p, encoding="utf-8").read())
+    return HTMLResponse("<h1>DocShield Bharat AI Console</h1>")
 
 @app.get("/health")
 def health():
