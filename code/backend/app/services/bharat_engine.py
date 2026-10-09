@@ -1,44 +1,34 @@
 import time
-import random
 
 class DocShieldBharatEngine:
     def __init__(self):
         self.priority_queue = []
         self.collaboration_notes = [
-            {"reviewer": "Inspector Sharma", "note": "Verified OCR against physical Aadhaar scan. Tampering in DOB field confirmed.", "timestamp": "2026-08-24 00:15:00"},
-            {"reviewer": "Supervisor Verma", "note": "Quarantine approved. Case assigned to Cyber Fraud Cell.", "timestamp": "2026-08-24 00:20:00"}
+            {"reviewer": "Inspector Sharma", "note": "Verified OCR against physical scan. Initial screening logged.", "timestamp": "2026-08-24 00:15:00"},
+            {"reviewer": "Supervisor Verma", "note": "Case assigned to verification queue.", "timestamp": "2026-08-24 00:20:00"}
         ]
 
     def get_system_status(self) -> dict:
         return {
-            "platform": "DocShield Bharat AI Ω (SIH 2026 Final Edition)",
-            "offline_mode_active": False,
-            "edge_sync_status": "ONLINE & SYNCHRONIZED",
+            "platform": "DocShield Bharat AI (SIH 2026)",
+            "gateway_status": "ONLINE & SYNCHRONIZED",
             "priority_queue_length": len(self.priority_queue),
             "supported_languages": ["Hindi", "English", "Bengali", "Tamil", "Telugu"],
-            "responsible_ai_metrics": {
-                "false_positive_rate": "0.42%",
-                "false_negative_rate": "0.18%",
-                "fairness_demographic_parity": "99.8%",
-                "confidence_distribution_mean": "94.6%"
-            },
-            "sustainable_green_ai": {
-                "compute_saving_mode": "ACTIVE",
-                "lightweight_filtering_pass": "PASSED (Skipped 70% unnecessary heavy GPU compute)",
-                "carbon_footprint_reduction": "68%"
-            }
+            "supported_verification_modes": [
+                "UIDAI Paperless Offline e-KYC (XML PKCS#7)",
+                "Aadhaar Secure QR Code (2048-Bit RSA)",
+                "DigiLocker / APISetu Requester Gateway",
+                "16-Layer AI Multi-Spectral Forensics (ELA + Verhoeff)"
+            ]
         }
 
     def process_priority_case(self, case_id: str, is_emergency: bool = False) -> dict:
         priority_level = "EMERGENCY / HIGH PRIORITY" if is_emergency else "STANDARD QUEUE"
-        processing_latency = "85ms (Fast-Tracked Pipeline)" if is_emergency else "420ms (Full 16-Layer Deep Analysis)"
-        
         return {
             "case_id": case_id,
             "priority_level": priority_level,
-            "processing_latency": processing_latency,
             "queue_position": 1 if is_emergency else len(self.priority_queue) + 1,
-            "status": "QUEUED & PROCESSED"
+            "status": "QUEUED"
         }
 
     def add_investigator_note(self, reviewer: str, note: str) -> dict:
@@ -54,33 +44,33 @@ class DocShieldBharatEngine:
         translations = {
             "hi": {
                 "title": "जांच रिपोर्ट निष्कर्ष",
-                "verdict_authentic": "दस्तावेज़ पूरी तरह से प्रामाणिक और सही पाया गया।",
-                "verdict_tampered": "सावधान! DOB क्षेत्र में विसंगति और QR कोड डेटा में असमानता पाई गई है।",
-                "voice_text": "सावधान! दस्तावेज़ में विसंगति और QR डेटा असमानता पाई गई है।"
+                "verdict_authentic": "दस्तावेज़ का डिजिटल हस्ताक्षर UIDAI प्रमाणपत्र से सत्यापित हुआ।",
+                "verdict_inconclusive": "दस्तावेज़ की दृश्य जांच सही है, लेकिन डिजिटल हस्ताक्षर के बिना आधिकारिक प्रामाणिकता स्थापित नहीं हुई।",
+                "verdict_tampered": "सावधान! दस्तावेज़ में विसंगति या संपीड़न असमानता पाई गई है।"
             },
             "en": {
                 "title": "Investigation Report Verdict",
-                "verdict_authentic": "Document verified as authentic and clean.",
-                "verdict_tampered": "Alert! Anomaly in DOB region and QR payload mismatch detected.",
-                "voice_text": "Alert! Anomaly in DOB region and QR data mismatch detected."
+                "verdict_authentic": "Document digital signature verified against UIDAI public certificate.",
+                "verdict_inconclusive": "Visual scan clean; official authenticity not established without cryptographic signature.",
+                "verdict_tampered": "Alert! Anomaly or pixel compression variance detected in document."
             },
             "bn": {
                 "title": "তদন্ত রিপোর্ট সিদ্ধান্ত",
-                "verdict_authentic": "নথিটি সম্পূর্ণ খাঁটি এবং সঠিক পাওয়া গেছে।",
-                "verdict_tampered": "সতর্কতা! জন্ম তারিখ এবং QR ডেটায় অসঙ্গতি পাওয়া গেছে।",
-                "voice_text": "সতর্কতা! জন্ম তারিখ এবং QR ডেটায় অসঙ্গতি পাওয়া গেছে।"
+                "verdict_authentic": "নথির ডিজিটাল স্বাক্ষর সফলভাবে যাচাই করা হয়েছে।",
+                "verdict_inconclusive": "নথিটি দৃশ্যত পরিষ্কার, তবে ডিজিটাল স্বাক্ষর ছাড়া আনুষ্ঠানিক প্রামাণিকতা নিশ্চিত নয়।",
+                "verdict_tampered": "সতর্কতা! নথিতে পরিবর্তন বা অসঙ্গতি পাওয়া গেছে।"
             },
             "ta": {
                 "title": "விசாரணை அறிக்கை தீர்ப்பு",
-                "verdict_authentic": "ஆவணம் உண்மையானது என உறுதி செய்யப்பட்டது.",
-                "verdict_tampered": "எச்சரிக்கை! பிறந்த தேதி மற்றும் QR தரவு பொருந்தவில்லை.",
-                "voice_text": "எச்சரிக்கை! பிறந்த தேதி மற்றும் QR தரவு பொருந்தவில்லை."
+                "verdict_authentic": "ஆவணத்தின் டிஜிட்டல் கையொப்பம் சரிபார்க்கப்பட்டது.",
+                "verdict_inconclusive": "ஆவணம் சரியாக உள்ளது, ஆனால் டிஜிட்டல் கையொப்பம் இல்லாமல் அதிகாரப்பூர்வ உண்மை உறுதிப்படுத்தப்படவில்லை.",
+                "verdict_tampered": "எச்சரிக்கை! ஆவணத்தில் முரண்பாடு கண்டறியப்பட்டது."
             },
             "te": {
                 "title": "పరిశోధన నివేదిక తీర్పు",
-                "verdict_authentic": "పత్రం పూర్తిగా ప్రామాణికమైనదిగా నిర్ధారించబడింది.",
-                "verdict_tampered": "హెచ్చరిక! పుట్టిన తేదీ మరియు QR డేటా సరిపోలలేదు.",
-                "voice_text": "హెచ్చరిక! పుట్టిన తేదీ మరియు QR డేటా సరిపోలలేదు."
+                "verdict_authentic": "పత్రం యొక్క డిజిటల్ సంతకం విజయవంతంగా ధృవీకరించబడింది.",
+                "verdict_inconclusive": "పత్రం స్పష్టంగా ఉంది, అయితే డిజిటల్ సంతకం లేకుండా అధికారిక ధృవీకరణ పూర్తి కాలేదు.",
+                "verdict_tampered": "హెచ్చరిక! పత్రంలో మార్పులు కనుగొనబడ్డాయి."
             }
         }
         return translations.get(lang, translations["hi"])
@@ -89,10 +79,10 @@ class DocShieldBharatEngine:
         clean_num = "".join(c for c in str(aadhaar_number) if c.isdigit())
         if len(clean_num) != 12:
             return {
-                "aadhaar_number": aadhaar_number,
+                "masked_aadhaar": f"XXXX-XXXX-{clean_num[-4:]}" if len(clean_num) >= 4 else "INVALID",
                 "verhoeff_checksum_valid": False,
-                "uidai_auth_status": "INVALID AADHAAR FORMAT (MUST BE 12 DIGITS)",
-                "demographics": None
+                "status": "INVALID_FORMAT",
+                "details": "Aadhaar number must contain exactly 12 numeric digits."
             }
 
         verhoeff_table_d = [
@@ -125,15 +115,8 @@ class DocShieldBharatEngine:
         is_valid = (c == 0)
 
         return {
-            "aadhaar_number": f"XXXX-XXXX-{clean_num[-4:]}",
+            "masked_aadhaar": f"XXXX-XXXX-{clean_num[-4:]}",
             "verhoeff_checksum_valid": is_valid,
-            "uidai_auth_status": "ACTIVE & VALIDATED VIA AUTHORIZED GATEWAY" if is_valid else "VERHOEFF CHECKSUM FAILED (FAKE AADHAAR NUMBER)",
-            "digilocker_verification_hash": "sha256_e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-            "rsa_digital_signature_check": "UIDAI MASTER PUBLIC KEY SIGNATURE VALID ✅" if is_valid else "RSA SIGNATURE FAILED 🚨",
-            "demographics": {
-                "age_band": "20 - 30 Years",
-                "gender": "Male",
-                "state": "Uttar Pradesh",
-                "mobile_linked": "XXXX-XXX-8912 (Active ✅)"
-            } if is_valid else None
+            "status": "CHECKSUM_VALID (D5)" if is_valid else "CHECKSUM_FAILED",
+            "details": "Mathematical Verhoeff Dihedral D5 check passed. Note: Checksum validates number structure; issuer authenticity requires UIDAI Offline e-KYC or DigiLocker." if is_valid else "Mathematical Verhoeff checksum failed. Invalid Aadhaar number."
         }

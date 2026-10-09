@@ -12,8 +12,7 @@ class HybridOCREngine:
 
     def analyze_document_with_gemini(self, file_bytes: bytes, file_name: str) -> dict:
         try:
-            # If Gemini API Key is provided, call Gemini REST API
-            if self.api_key and self.api_key.startswith("AIza") or self.api_key.startswith("AQ"):
+            if self.api_key and (self.api_key.startswith("AIza") or self.api_key.startswith("AQ")):
                 b64_data = base64.b64encode(file_bytes).decode('utf-8')
                 mime_type = "application/pdf" if file_name.lower().endswith(".pdf") else "image/jpeg"
 
@@ -38,7 +37,6 @@ class HybridOCREngine:
                     res_json = json.loads(resp.read().decode('utf-8'))
                     text_response = res_json['candidates'][0]['content']['parts'][0]['text']
                     
-                    # Extract JSON from response if formatted in markdown
                     json_str = text_response
                     if "```json" in text_response:
                         json_str = text_response.split("```json")[1].split("```")[0]
@@ -47,16 +45,15 @@ class HybridOCREngine:
 
                     parsed = json.loads(json_str.strip())
                     return parsed
-        except Exception as e:
+        except Exception:
             pass
 
-        # Intelligent Dynamic Fallback
-        is_fake = any(k in file_name.lower() for k in ["fake", "tamper", "edit", "forge", "scam"])
+        # Honest Fallback (Never fabricate authenticity or biometric match)
         return {
-            "risk_score": 84.0 if is_fake else 12.0,
-            "status": "HIGH RISK / TAMPERED" if is_fake else "VERIFIED & AUTHENTIC",
-            "ela_score": "82.4% Forgery Detected" if is_fake else "3.8% (Clean Authentic Compression)",
-            "qr_status": "🚨 Mismatch Detected (OCR Payload vs QR Data)" if is_fake else "✅ Verified Cryptographic Signature Match",
-            "face_match": "34.2% Mismatch" if is_fake else "98.6% Biometric Match",
-            "verdict_notes": "Document examined via Gemini Hybrid Vision OCR Engine."
+            "risk_score": 15.0,
+            "status": "INCONCLUSIVE — AI Model Unavailable",
+            "ela_score": "Pending Local ELA",
+            "qr_status": "NOT_CHECKED",
+            "face_match": "NOT_CHECKED",
+            "verdict_notes": "Cloud Vision AI unavailable. Document evaluated by local cryptographic and forensic pipeline."
         }
