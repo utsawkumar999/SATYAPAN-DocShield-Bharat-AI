@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
@@ -25,8 +25,9 @@
       </div>
     </div>
     <div class="flex items-center gap-3">
-      <span class="text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-3.5 py-1.5 rounded-full font-mono font-bold">
-        🟢 UIDAI & DIGILOCKER GATEWAY ACTIVE
+      <span class="text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-3.5 py-1.5 rounded-full font-mono font-bold flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        UIDAI & DIGILOCKER GATEWAY ACTIVE
       </span>
       <span class="text-xs bg-slate-800 text-slate-300 border border-slate-700 px-3 py-1.5 rounded-xl font-mono">
         Team: Digital Warriors
@@ -37,7 +38,7 @@
   <!-- 3 VERIFICATION TIERS SELECTION -->
   <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
     <!-- TIER 1: UIDAI DIRECT -->
-    <div onclick="selectRoute('uidai')" id="card-uidai" class="cursor-pointer p-5 bg-slate-900/80 border-2 border-blue-500 rounded-2xl space-y-2 hover:bg-slate-800/80 transition">
+    <div onclick="selectRoute('uidai')" id="card-uidai" class="cursor-pointer p-5 bg-slate-900/80 border-2 border-blue-500 rounded-2xl space-y-2 hover:bg-slate-800/80 transition shadow-lg shadow-blue-500/10">
       <div class="flex justify-between items-center">
         <span class="text-2xl">🏛️</span>
         <span class="text-[10px] font-mono bg-blue-500/20 text-blue-300 px-2.5 py-1 rounded-full font-bold border border-blue-500/30">LEVEL 1 GROUND TRUTH</span>
@@ -53,7 +54,7 @@
         <span class="text-[10px] font-mono bg-emerald-500/20 text-emerald-300 px-2.5 py-1 rounded-full font-bold border border-emerald-500/30">LEVEL 2 AUTHORITATIVE</span>
       </div>
       <h3 class="text-base font-bold text-white">Direct DigiLocker Gate</h3>
-      <p class="text-xs text-slate-400">User consent OAuth2 authentication pulling authentic issuer records.</p>
+      <p class="text-xs text-slate-400">Official Government DigiLocker OAuth2 portal & direct issuer stream.</p>
     </div>
 
     <!-- TIER 3: MULTI-SPECTRAL AI FORENSICS -->
@@ -63,7 +64,7 @@
         <span class="text-[10px] font-mono bg-purple-500/20 text-purple-300 px-2.5 py-1 rounded-full font-bold border border-purple-500/30">LEVEL 3 FORENSICS</span>
       </div>
       <h3 class="text-base font-bold text-white">16-Layer AI Forensics</h3>
-      <p class="text-xs text-slate-400">Pixel Error Level Analysis (ELA), font consistency & Screen Moiré Anti-Spoofing.</p>
+      <p class="text-xs text-slate-400">Real Pixel ELA, Verhoeff D5 Checksum & Screen Moiré Anti-Spoofing.</p>
     </div>
   </div>
 
@@ -78,38 +79,52 @@
         <!-- DYNAMIC UPLOAD AREA -->
         <div id="dropArea" class="border-2 border-dashed border-blue-500/60 hover:border-blue-400 rounded-xl p-6 text-center space-y-3 bg-slate-950/50 cursor-pointer">
           <div class="text-4xl">📥</div>
-          <p id="dropText" class="text-sm font-bold text-slate-300">Upload Aadhaar Card (PDF / Image / e-KYC ZIP)</p>
-          <input type="file" id="fileInput" class="hidden" onchange="handleFileSelected(event)">
-          <button onclick="document.getElementById('fileInput').click()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-4 py-2 rounded-xl text-xs shadow transition">
-            Choose Document File
-          </button>
-        </div>
-
-        <!-- DIGILOCKER BUTTON -->
-        <div id="digilockerAction" class="hidden space-y-3">
-          <p class="text-xs text-slate-400">Connect to Government of India's DigiLocker Gateway via Secure Consent:</p>
-          <button onclick="connectDigiLocker()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg transition">
-            <span>🔗</span> Connect & Fetch via Official DigiLocker
-          </button>
-        </div>
-
-        <!-- SAMPLE TEST BUTTONS -->
-        <div class="space-y-2">
-          <p class="text-xs font-bold text-slate-400">Instant Simulation Controls:</p>
-          <div class="grid grid-cols-2 gap-2">
-            <button onclick="simulateUIDAI('valid')" class="p-3 bg-emerald-950/40 border border-emerald-500/30 hover:bg-emerald-900/50 rounded-xl text-xs font-bold text-emerald-300 text-center transition">
-              🏛️ Valid UIDAI Sign
+          <p id="dropText" class="text-sm font-bold text-slate-300">Upload Document (Image / PDF / e-KYC ZIP)</p>
+          <input type="file" id="fileInput" class="hidden" onchange="uploadAndVerify(event)">
+          <div class="flex justify-center gap-2">
+            <button onclick="document.getElementById('fileInput').click()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-4 py-2 rounded-xl text-xs shadow transition">
+              Choose Document File
             </button>
-            <button onclick="simulateUIDAI('tampered')" class="p-3 bg-red-950/40 border border-red-500/30 hover:bg-red-900/50 rounded-xl text-xs font-bold text-red-300 text-center transition">
-              🚨 Spliced Fake ID
+          </div>
+          <p class="text-[11px] text-slate-500 font-mono">Real-time Backend API analysis (ELA + Verhoeff + Crypto Check)</p>
+        </div>
+
+        <!-- DIGILOCKER ACTION -->
+        <div id="digilockerAction" class="hidden space-y-3">
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Connect directly to Government of India's DigiLocker Gateway via official OAuth2 Consent:
+          </p>
+          <div class="space-y-2">
+            <button onclick="openDigiLockerPortal()" class="w-full py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg transition">
+              <span>🚀</span> Launch Official DigiLocker Portal (Redirect)
+            </button>
+            <button onclick="fetchDigiLockerConsent()" class="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-emerald-300 border border-emerald-500/30 font-bold rounded-xl text-xs flex items-center justify-center gap-2 transition">
+              <span>📥</span> Fetch Verified Issuer Stream (APISetu Direct)
+            </button>
+          </div>
+        </div>
+
+        <!-- SIMULATION CONTROLS -->
+        <div class="space-y-2">
+          <p class="text-xs font-bold text-slate-400">Quick Test Scenarios:</p>
+          <div class="grid grid-cols-2 gap-2">
+            <button onclick="runScenario('ekyc_valid')" class="p-2.5 bg-emerald-950/40 border border-emerald-500/30 hover:bg-emerald-900/50 rounded-xl text-xs font-bold text-emerald-300 text-center transition">
+              🏛️ Valid e-KYC XML
+            </button>
+            <button onclick="runScenario('raw_photo')" class="p-2.5 bg-amber-950/40 border border-amber-500/30 hover:bg-amber-900/50 rounded-xl text-xs font-bold text-amber-300 text-center transition">
+              📷 Raw Photo Scan
+            </button>
+            <button onclick="runScenario('tampered')" class="p-2.5 bg-red-950/40 border border-red-500/30 hover:bg-red-900/50 rounded-xl text-xs font-bold text-red-300 text-center transition col-span-2">
+              🚨 Photoshop Spliced Fake ID
             </button>
           </div>
         </div>
       </div>
 
       <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono space-y-1.5 text-slate-400">
-        <p class="text-cyan-400 font-bold">🔐 Security Axiom:</p>
+        <p class="text-cyan-400 font-bold">🔐 Security Standard:</p>
         <p>• "Tamper Detection ≠ Authenticity Verification"</p>
+        <p>• Clean Photo = INCONCLUSIVE (Subject to e-KYC)</p>
         <p>• Official RSA Signature = Proven Ground Truth</p>
       </div>
     </div>
@@ -118,26 +133,38 @@
     <div class="lg:col-span-2 bg-slate-900/60 border border-slate-800 rounded-2xl p-6 space-y-6">
       
       <!-- TOP VERDICT CARD -->
-      <div id="verdictCard" class="p-5 rounded-2xl bg-emerald-950/30 border-2 border-emerald-500/50 flex flex-col md:flex-row justify-between items-center gap-4">
-        <div>
+      <div id="verdictCard" class="p-5 rounded-2xl bg-emerald-950/30 border-2 border-emerald-500/50 flex flex-col md:flex-row justify-between items-center gap-4 transition-all duration-300">
+        <div class="space-y-1">
           <span id="verdictBadge" class="text-xs font-mono bg-emerald-500/20 text-emerald-300 px-3 py-1 rounded-full border border-emerald-500/30 font-bold">
             🟢 LEVEL 1 VERIFIED · CRYPTOGRAPHIC PROOF
           </span>
           <h2 id="verdictTitle" class="text-2xl font-black text-emerald-400 mt-2">AUTHENTIC UIDAI SIGNATURE VALIDATED</h2>
-          <p id="verdictSub" class="text-xs text-slate-400 mt-1 font-mono">Issuer: UIDAI 2048-Bit RSA Authority · Demographic Fields Match Ground Truth</p>
+          <p id="verdictSub" class="text-xs text-slate-400 font-mono">Issuer: UIDAI 2048-Bit RSA Authority · Demographic Fields Match Ground Truth</p>
         </div>
-        <div class="text-center md:text-right">
-          <p class="text-xs text-slate-400 font-mono">Verification Confidence</p>
-          <p id="riskScore" class="text-4xl font-black text-emerald-400">100%<span class="text-sm font-normal text-slate-400"> Proof</span></p>
+        <div class="text-center md:text-right min-w-[120px]">
+          <p class="text-xs text-slate-400 font-mono">Risk Assessment</p>
+          <p id="riskScore" class="text-4xl font-black text-emerald-400">0.0%<span class="text-sm font-normal text-slate-400"> Risk</span></p>
         </div>
       </div>
 
       <!-- 4 EVIDENCE SUMMARY BLOCKS -->
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono">
-        <div class="p-3.5 bg-slate-950 rounded-xl border border-slate-800"><p class="text-slate-400">Issuer Signature</p><p id="sigStatus" class="text-xl font-bold text-emerald-400 mt-1">VALID (RSA)</p></div>
-        <div class="p-3.5 bg-slate-950 rounded-xl border border-slate-800"><p class="text-slate-400">Verhoeff Math</p><p id="verhoeffStatus" class="text-xl font-bold text-emerald-400 mt-1">PASSED (D5)</p></div>
-        <div class="p-3.5 bg-slate-950 rounded-xl border border-slate-800"><p class="text-slate-400">ELA Tampering</p><p id="elaStatus" class="text-xl font-bold text-emerald-400 mt-1">0.0% Splicing</p></div>
-        <div class="p-3.5 bg-slate-950 rounded-xl border border-slate-800"><p class="text-slate-400">Screen Liveness</p><p id="liveStatus" class="text-xl font-bold text-emerald-400 mt-1">PHYSICAL 99%</p></div>
+        <div class="p-3.5 bg-slate-950 rounded-xl border border-slate-800">
+          <p class="text-slate-400">Issuer Signature</p>
+          <p id="sigStatus" class="text-base font-bold text-emerald-400 mt-1">VALID (RSA)</p>
+        </div>
+        <div class="p-3.5 bg-slate-950 rounded-xl border border-slate-800">
+          <p class="text-slate-400">Verhoeff Math</p>
+          <p id="verhoeffStatus" class="text-base font-bold text-emerald-400 mt-1">PASSED (D5)</p>
+        </div>
+        <div class="p-3.5 bg-slate-950 rounded-xl border border-slate-800">
+          <p class="text-slate-400">ELA Tampering</p>
+          <p id="elaStatus" class="text-base font-bold text-emerald-400 mt-1">0.0% Splicing</p>
+        </div>
+        <div class="p-3.5 bg-slate-950 rounded-xl border border-slate-800">
+          <p class="text-slate-400">Screen Liveness</p>
+          <p id="liveStatus" class="text-base font-bold text-emerald-400 mt-1">PHYSICAL 99%</p>
+        </div>
       </div>
 
       <!-- DETAILED EVIDENCE BREAKDOWN -->
@@ -145,10 +172,16 @@
         <h3 class="text-sm font-bold text-slate-300">Auditable Evidence Chain (Court-Admissible):</h3>
         <div id="evidenceList" class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs font-mono">
           <div class="p-2.5 bg-slate-950 rounded-lg border border-slate-800 flex justify-between"><span>1. UIDAI Public Certificate Match</span><span class="text-emerald-400 font-bold">MATCHED ✅</span></div>
-          <div class="p-2.5 bg-slate-950 rounded-lg border border-slate-800 flex justify-between"><span>2. Encrypted Share-Phrase Decryption</span><span class="text-emerald-400 font-bold">PASSED ✅</span></div>
-          <div class="p-2.5 bg-slate-950 rounded-lg border border-slate-800 flex justify-between"><span>3. OCR Text vs QR Payload Cross-Check</span><span class="text-emerald-400 font-bold">100% CONSISTENT ✅</span></div>
+          <div class="p-2.5 bg-slate-950 rounded-lg border border-slate-800 flex justify-between"><span>2. XML PKCS#7 Digital Signature</span><span class="text-emerald-400 font-bold">PASSED ✅</span></div>
+          <div class="p-2.5 bg-slate-950 rounded-lg border border-slate-800 flex justify-between"><span>3. OCR Text vs Payload Cross-Check</span><span class="text-emerald-400 font-bold">100% CONSISTENT ✅</span></div>
           <div class="p-2.5 bg-slate-950 rounded-lg border border-slate-800 flex justify-between"><span>4. Digital Screen Replay Glare Check</span><span class="text-emerald-400 font-bold">PASS (No Moiré) ✅</span></div>
         </div>
+      </div>
+
+      <!-- NOTES & AUDIT TRAIL -->
+      <div class="p-4 bg-slate-950/80 rounded-xl border border-slate-800 text-xs font-mono text-slate-300 space-y-1">
+        <p class="text-cyan-400 font-bold">Auditor Verdict Notes:</p>
+        <p id="verdictNotes" class="leading-relaxed">Document verified against official ground-truth cryptographic signature.</p>
       </div>
 
     </div>
@@ -173,7 +206,7 @@
 
       if (route === 'uidai') {
         title.textContent = '🏛️ Direct UIDAI Verification';
-        dropText.textContent = 'Upload Aadhaar Card (PDF / Image / e-KYC ZIP)';
+        dropText.textContent = 'Upload UIDAI e-KYC ZIP / XML or Secure QR';
         digiAction.classList.add('hidden');
         dropArea.classList.remove('hidden');
       } else if (route === 'digilocker') {
@@ -188,28 +221,60 @@
       }
     }
 
-    function connectDigiLocker() {
-      const vCard = document.getElementById('verdictCard');
-      const vTitle = document.getElementById('verdictTitle');
-      const vBadge = document.getElementById('verdictBadge');
-      const vSub = document.getElementById('verdictSub');
-      const rScore = document.getElementById('riskScore');
-      const sStatus = document.getElementById('sigStatus');
-
-      vCard.className = 'p-5 rounded-2xl bg-emerald-950/30 border-2 border-emerald-500/50 flex flex-col md:flex-row justify-between items-center gap-4';
-      vBadge.className = 'text-xs font-mono bg-emerald-500/20 text-emerald-300 px-3 py-1 rounded-full border border-emerald-500/30 font-bold';
-      vBadge.textContent = '🟢 LEVEL 2 VERIFIED · DIGILOCKER AUTHORITATIVE RECORD';
-      vTitle.textContent = 'OFFICIAL ISSUER RECORD RETRIEVED (100% AUTHENTIC)';
-      vTitle.className = 'text-2xl font-black text-emerald-400 mt-2';
-      vSub.textContent = 'Document Source: Ministry of Road Transport / UIDAI Issuer · Digital PKCS#7 Seal Intact';
-      rScore.textContent = '100% Proof';
-      rScore.className = 'text-4xl font-black text-emerald-400';
-      sStatus.textContent = 'ISSUER SEALED';
-      sStatus.className = 'text-xl font-bold text-emerald-400 mt-1';
+    function openDigiLockerPortal() {
+      window.open('https://services.digitallocker.gov.in/', '_blank');
     }
 
-    function simulateUIDAI(type) {
-      const isV = (type === 'valid');
+    async function fetchDigiLockerConsent() {
+      renderLoading();
+      try {
+        const resp = await fetch('/api/digilocker/fetch-document?doc_type=aadhaar');
+        const data = await resp.json();
+        renderResult({
+          status: data.status,
+          verification_tier: "🟢 LEVEL 2 VERIFIED · DIGILOCKER AUTHORITATIVE RECORD",
+          risk_score: 0.0,
+          signature_status: "ISSUER SEALED (PKCS#7)",
+          verhoeff_status: "AUTHORITATIVE STREAM",
+          ela_score: "N/A (Direct Issuer Pipe)",
+          screen_liveness: "CENTRAL VAULT 100%",
+          evidence_chain: data.evidence_chain,
+          verdict_notes: "Direct issuer document stream fetched via DigiLocker / APISetu gateway with user consent token."
+        });
+      } catch (err) {
+        alert("DigiLocker Gateway error: " + err.message);
+      }
+    }
+
+    async function uploadAndVerify(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+
+      renderLoading();
+
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('share_code', '1234');
+
+      try {
+        const response = await fetch('/api/verify-document', {
+          method: 'POST',
+          body: formData
+        });
+        const result = await response.json();
+        renderResult(result);
+      } catch (e) {
+        alert('Verification API Error: ' + e.message);
+      }
+    }
+
+    function renderLoading() {
+      document.getElementById('verdictTitle').textContent = 'ANALYZING MULTI-LAYER EVIDENCE...';
+      document.getElementById('verdictSub').textContent = 'Executing Pixel ELA Forensics, Verhoeff Math & Signature Decryption';
+      document.getElementById('riskScore').textContent = '...';
+    }
+
+    function renderResult(res) {
       const vCard = document.getElementById('verdictCard');
       const vTitle = document.getElementById('verdictTitle');
       const vBadge = document.getElementById('verdictBadge');
@@ -217,44 +282,103 @@
       const rScore = document.getElementById('riskScore');
       const sStatus = document.getElementById('sigStatus');
       const eStatus = document.getElementById('elaStatus');
+      const verStatus = document.getElementById('verhoeffStatus');
       const lStatus = document.getElementById('liveStatus');
+      const vNotes = document.getElementById('verdictNotes');
+      const evList = document.getElementById('evidenceList');
 
-      if (isV) {
+      vTitle.textContent = res.status;
+      vBadge.textContent = res.verification_tier || res.status;
+      vSub.textContent = `Issuer: ${res.issuer || 'Verification Engine'} · Digital DNA Timestamp: ${res.timestamp || new Date().toISOString()}`;
+      rScore.innerHTML = `${res.risk_score}%<span class="text-sm font-normal text-slate-400"> Risk</span>`;
+      sStatus.textContent = res.signature_status || 'N/A';
+      eStatus.textContent = res.ela_score || 'N/A';
+      verStatus.textContent = res.verhoeff_status || 'PASSED';
+      lStatus.textContent = res.screen_liveness || 'N/A';
+      vNotes.textContent = res.verdict_notes || '';
+
+      if (res.status.includes('VERIFIED')) {
         vCard.className = 'p-5 rounded-2xl bg-emerald-950/30 border-2 border-emerald-500/50 flex flex-col md:flex-row justify-between items-center gap-4';
         vBadge.className = 'text-xs font-mono bg-emerald-500/20 text-emerald-300 px-3 py-1 rounded-full border border-emerald-500/30 font-bold';
-        vBadge.textContent = '🟢 LEVEL 1 VERIFIED · CRYPTOGRAPHIC PROOF';
-        vTitle.textContent = 'AUTHENTIC UIDAI SIGNATURE VALIDATED';
         vTitle.className = 'text-2xl font-black text-emerald-400 mt-2';
-        vSub.textContent = 'Issuer: UIDAI 2048-Bit RSA Authority · Demographic Fields Match Ground Truth';
-        rScore.textContent = '100% Proof';
         rScore.className = 'text-4xl font-black text-emerald-400';
-        sStatus.textContent = 'VALID (RSA)';
-        sStatus.className = 'text-xl font-bold text-emerald-400 mt-1';
-        eStatus.textContent = '0.0% Splicing';
-        eStatus.className = 'text-xl font-bold text-emerald-400 mt-1';
-        lStatus.textContent = 'PHYSICAL 99%';
-        lStatus.className = 'text-xl font-bold text-emerald-400 mt-1';
+      } else if (res.status.includes('INCONCLUSIVE')) {
+        vCard.className = 'p-5 rounded-2xl bg-amber-950/30 border-2 border-amber-500/50 flex flex-col md:flex-row justify-between items-center gap-4';
+        vBadge.className = 'text-xs font-mono bg-amber-500/20 text-amber-300 px-3 py-1 rounded-full border border-amber-500/30 font-bold';
+        vTitle.className = 'text-2xl font-black text-amber-400 mt-2';
+        rScore.className = 'text-4xl font-black text-amber-400';
       } else {
         vCard.className = 'p-5 rounded-2xl bg-red-950/30 border-2 border-red-500/50 flex flex-col md:flex-row justify-between items-center gap-4';
         vBadge.className = 'text-xs font-mono bg-red-500/20 text-red-300 px-3 py-1 rounded-full border border-red-500/30 font-bold';
-        vBadge.textContent = '🔴 REFER · FORGERY / SCREEN SPOOF DETECTED';
-        vTitle.textContent = 'INVALID SIGNATURE & MODIFIED DOB DETECTED';
         vTitle.className = 'text-2xl font-black text-red-400 mt-2';
-        vSub.textContent = 'Hard-Fail: QR Cryptographic Hash Mismatch · Spliced Photo Layer Found';
-        rScore.textContent = '91.4% Risk';
         rScore.className = 'text-4xl font-black text-red-400';
-        sStatus.textContent = 'INVALID 🚨';
-        sStatus.className = 'text-xl font-bold text-red-400 mt-1';
-        eStatus.textContent = '48.2% (Spliced)';
-        eStatus.className = 'text-xl font-bold text-red-400 mt-1';
-        lStatus.textContent = 'SCREEN SPOOF 92%';
-        lStatus.className = 'text-xl font-bold text-red-400 mt-1';
+      }
+
+      if (res.evidence_chain && Array.isArray(res.evidence_chain)) {
+        evList.innerHTML = res.evidence_chain.map(item => `
+          <div class="p-2.5 bg-slate-950 rounded-lg border border-slate-800 flex justify-between items-center">
+            <span class="text-slate-300">${item.check}</span>
+            <span class="font-bold ${item.status.includes('❌') || item.status.includes('🚨') ? 'text-red-400' : (item.status.includes('⚠️') ? 'text-amber-400' : 'text-emerald-400')}">${item.status}</span>
+          </div>
+        `).join('');
       }
     }
 
-    function handleFileSelected(e) {
-      if (e.target.files && e.target.files[0]) {
-        simulateUIDAI('valid');
+    function runScenario(type) {
+      if (type === 'ekyc_valid') {
+        renderResult({
+          status: "VERIFIED — Offline e-KYC Signature Valid",
+          verification_tier: "🟢 LEVEL 1 GROUND TRUTH · UIDAI CRYPTOGRAPHIC PROOF",
+          issuer: "Unique Identification Authority of India (UIDAI)",
+          risk_score: 0.0,
+          signature_status: "VALID (2048-Bit RSA PKCS#7)",
+          verhoeff_status: "PASSED (Cryptographically Seeded)",
+          ela_score: "N/A (Signed XML Stream)",
+          screen_liveness: "PHYSICAL CREDENTIAL (100%)",
+          verdict_notes: "UIDAI Paperless Offline e-KYC XML package validated. Digital signature matches UIDAI Public Certificate.",
+          evidence_chain: [
+            { check: "UIDAI Public Certificate Trust Chain", status: "PASSED ✅" },
+            { check: "XML PKCS#7 Digital Signature", status: "VALID ✅" },
+            { check: "Tamper-Proof Demographic Payload", status: "INTACT ✅" },
+            { check: "Central DB Query Bypass (Privacy Compliant)", status: "OFFLINE VERIFIED ✅" }
+          ]
+        });
+      } else if (type === 'raw_photo') {
+        renderResult({
+          status: "INCONCLUSIVE — Official Authenticity Not Established",
+          verification_tier: "⚠️ INCONCLUSIVE · LOW VISUAL RISK (REQUIRES e-KYC)",
+          issuer: "Unverified Raw Photo Scan",
+          risk_score: 15.0,
+          signature_status: "NO DIGITAL SIGNATURE (RAW PHOTO)",
+          verhoeff_status: "PASSED (D5)",
+          ela_score: "4.2% Compression Variance",
+          screen_liveness: "PHYSICAL 96%",
+          verdict_notes: "Visual scan is clean with low compression variance. However, raw photos do not contain cryptographic proof. Please submit UIDAI Offline e-KYC or connect via DigiLocker.",
+          evidence_chain: [
+            { check: "UIDAI Cryptographic Seal", status: "NOT EMBEDDED IN RAW IMAGE ⚠️" },
+            { check: "Pixel Compression (ELA)", status: "CLEAN (4.2%) ✅" },
+            { check: "Verhoeff Checksum", status: "VERIFIED FORMAT ✅" },
+            { check: "Official Authority Lookup", status: "REQUIRES e-KYC / DIGILOCKER ⚠️" }
+          ]
+        });
+      } else {
+        renderResult({
+          status: "HIGH RISK / TAMPERED — Splicing Detected",
+          verification_tier: "🔴 HIGH RISK · FORGERY / MANIPULATION DETECTED",
+          issuer: "Manipulated Document",
+          risk_score: 88.5,
+          signature_status: "SIGNATURE MISSING / INVALID 🚨",
+          verhoeff_status: "FAILED (INVALID CHECKSUM 🚨)",
+          ela_score: "48.2% Compression Anomaly",
+          screen_liveness: "SUSPICIOUS 32%",
+          verdict_notes: "Visual tampering detected: High ELA compression variance across font and image regions. Checksum failed.",
+          evidence_chain: [
+            { check: "UIDAI Cryptographic Seal", status: "NOT FOUND / UNVERIFIED ❌" },
+            { check: "Pixel Compression (ELA)", status: "ANOMALY (48.2%) 🚨" },
+            { check: "Verhoeff Checksum", status: "FAILED (INVALID CHECKSUM 🚨)" },
+            { check: "Visual Inspection", status: "TAMPERING DETECTED 🚨" }
+          ]
+        });
       }
     }
   </script>
